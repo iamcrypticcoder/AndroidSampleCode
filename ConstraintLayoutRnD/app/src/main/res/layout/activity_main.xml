@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"/>
+
+    <Button
+        android:id="@+id/spreadDemoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Chain Spread Demo"
+        app:layout_constraintBottom_toTopOf="@id/spreadInsideDemoButton"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/spreadInsideDemoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Chain Spread Inside Demo"
+        app:layout_constraintBottom_toTopOf="@id/packedDemoButton"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/spreadDemoButton" />
+
+    <Button
+        android:id="@+id/packedDemoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Chain Packed Demo"
+        app:layout_constraintBottom_toTopOf="@id/weightedDemoButton"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/spreadInsideDemoButton" />
+
+    <Button
+        android:id="@+id/weightedDemoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Chain Weighted Demo"
+        app:layout_constraintBottom_toBottomOf="@id/resizableRecyclerDemoButton"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/packedDemoButton" />
+
+    <Button
+        android:id="@+id/resizableRecyclerDemoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Resizable Recycler View"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/weightedDemoButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AndroidServiceRnD</string>
+    <string name="title_activity_controller">ControllerActivity</string>
+    <string name="title_binding_controller">BindingActivity</string>
+
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="local_service_connected">Local Service Connected</string>
+    <string name="local_service_disconnected">Local Service Disconnected</string>
+    <string name="remote_service_started">Remote Service Started</string>
+
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_message">Notification Message</string>
+
+</resources>
