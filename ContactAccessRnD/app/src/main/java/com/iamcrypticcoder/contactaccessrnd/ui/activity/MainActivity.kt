@@ -7,13 +7,23 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.iamcrypticcoder.contactaccessrnd.databinding.ActivityMainBinding
+import com.iamcrypticcoder.contactaccessrnd.ui.viewmodel.ContactViewModel
 import contacts.core.Contacts
 import contacts.core.util.emailList
 import contacts.core.util.emails
 import contacts.core.util.organizationList
 import contacts.core.util.organizations
 import contacts.core.util.phoneList
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,10 +32,22 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
 
+    private lateinit var contactViewModel: ContactViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        contactViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
+
+        GlobalScope.launch {
+            contactViewModel.myStateFlow.collect {
+                Log.d(TAG, it)
+            }
+        }
+
+        contactViewModel.updateUIState("New Value")
 
         viewBinding.accessContactButton.setOnClickListener {
             // Sets the columns to retrieve for the user profile
@@ -45,14 +67,32 @@ class MainActivity : AppCompatActivity() {
 //                null
 //            )
             //readContacts()
-            val contacts = Contacts(context = applicationContext).query().find()
-            contacts.forEach {
-                Log.d(TAG, "Display Name = ${it.displayNamePrimary}")
-                Log.d(TAG, "Phone List = ${it.phoneList()}")
-                Log.d(TAG, "Emails = ${it.emailList()}")
-                Log.d(TAG, "Work = ${it.organizationList()}")
+//            val contacts = Contacts(context = applicationContext).query().find()
+//            contacts.forEach {
+//                Log.d(TAG, "Display Name = ${it.displayNamePrimary}")
+//                Log.d(TAG, "Phone List = ${it.phoneList()}")
+//                Log.d(TAG, "Emails = ${it.emailList()}")
+//                Log.d(TAG, "Work = ${it.organizationList()}")
+//            }
+//            Log.d(TAG, "Sample Line")
+            //simple().forEach { value -> Log.d(TAG, value.toString()) }
+            runBlocking {
+                simple2().collect { value -> println("Collected $value") }
             }
-            Log.d(TAG, "Sample Line")
+        }
+    }
+
+    fun simple(): Sequence<Int> = sequence { // sequence builder
+        for (i in 1..3) {
+            Thread.sleep(1000) // pretend we are computing it
+            yield(i) // yield next value
+        }
+    }
+
+    fun simple2(): Flow<Int> = flow { // flow builder
+        for (i in 1..3) {
+            delay(1000) // pretend we are doing something useful here
+            emit(i) // emit next value
         }
     }
 
