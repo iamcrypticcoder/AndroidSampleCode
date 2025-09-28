@@ -1,7 +1,0 @@
-include ':remoteclienttwo'
-include ':remoteclientone'
-include ':service'
-include ':serviceInterface'
-include ':app'
-rootProject.name = "AndroidServiceRnD"
-include ':foregroundservice'

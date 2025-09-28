@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "608043525492",
+    "firebase_url": "https://fir-rnd-c7e48.firebaseio.com",
+    "project_id": "fir-rnd-c7e48",
+    "storage_bucket": "fir-rnd-c7e48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608043525492:android:b35bd4e57b7b45a5e73821",
+        "android_client_info": {
+          "package_name": "com.iamcrypticcoder.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608043525492-l5qeht4opinsd83u1n2t9jnaephoqqpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbfsXO6FQxE1Go_YBGrqxkDUTrlBvaeZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608043525492-l5qeht4opinsd83u1n2t9jnaephoqqpj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "608043525492-q9ctuhfcj3l8llmkpiv7ksj8plm5u50i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iamcrypticcoder.firebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
