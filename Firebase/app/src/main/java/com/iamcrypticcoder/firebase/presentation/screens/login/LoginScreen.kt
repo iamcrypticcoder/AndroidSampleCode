@@ -1,4 +1,4 @@
-package com.iamcrypticcoder.jetpackcompose.screens.loginscreen1
+package com.iamcrypticcoder.firebase.presentation.screens.login
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -33,16 +33,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.iamcrypticcoder.jetpackcompose.R
+import com.iamcrypticcoder.firebase.R
 
 @Composable
-@Preview(showBackground = true)
-fun SampleLoginScreen1(navController: NavHostController = rememberNavController()) {
+fun LoginScreen(navController : NavHostController = rememberNavController()) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }

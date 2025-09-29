@@ -1,11 +1,3 @@
 <resources>
-    <string name="app_name">FirebaseRnD</string>
-
-    <string name="title_activity_authentication">Authentication Activity</string>
-    <string name="title_activity_analytics">Analytics Activity</string>
-    <string name="title_activity_realtime_database">Realtime Database Activity</string>
-
-    <string name="facebook_app_id">883950408912103</string>
-    <string name="fb_login_protocol_scheme">fb883950408912103</string>
-
+    <string name="app_name">Firebase</string>
 </resources>
