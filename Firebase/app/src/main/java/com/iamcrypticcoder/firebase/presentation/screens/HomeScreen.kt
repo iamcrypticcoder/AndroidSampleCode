@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -28,6 +29,7 @@ import com.iamcrypticcoder.firebase.presentation.navigation.Route
 private const val TAG = "HomeScreen"
 
 @Composable
+@Preview(showBackground = true)
 fun HomeScreen(navController : NavHostController = rememberNavController()) {
     Column (
         modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(48.dp),

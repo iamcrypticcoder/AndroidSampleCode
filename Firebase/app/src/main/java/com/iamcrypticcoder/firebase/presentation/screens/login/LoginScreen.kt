@@ -1,5 +1,6 @@
 package com.iamcrypticcoder.firebase.presentation.screens.login
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,22 +30,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.iamcrypticcoder.firebase.R
+import com.iamcrypticcoder.firebase.presentation.navigation.Route
 
 @Composable
+@Preview(showBackground = true)
 fun LoginScreen(navController : NavHostController = rememberNavController()) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -81,7 +87,7 @@ fun LoginScreen(navController : NavHostController = rememberNavController()) {
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
-                    isError = username.isBlank(),
+                    isError = false,
                 )
                 Spacer(modifier = Modifier.height(4.dp)) // Space for error message
                 AnimatedVisibility(visible = username.isNotEmpty()) {
@@ -112,7 +118,7 @@ fun LoginScreen(navController : NavHostController = rememberNavController()) {
                     },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
-                    isError = password.isBlank(),
+                    isError = false,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 AnimatedVisibility(visible = password.isBlank()) {
@@ -153,10 +159,14 @@ fun LoginScreen(navController : NavHostController = rememberNavController()) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                TextButton(onClick = { /* Handle forgot password */ }) {
+                TextButton(onClick = {
+                    Toast.makeText(context, "Nothing to do", Toast.LENGTH_SHORT).show()
+                }) {
                     Text("Forgot Password?", fontSize = 12.sp)
                 }
-                TextButton(onClick = { /* Handle sign up */ }) {
+                TextButton(onClick = {
+                    navController.navigate(Route.SignupScreen.route)
+                }) {
                     Text("Sign Up", fontSize = 12.sp)
                 }
             }

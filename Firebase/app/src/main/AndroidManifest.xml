@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Firebase">
+        android:theme="@style/Theme.Firebase"
+        android:name=".FirebaseApp">
         <activity
             android:name=".MainActivity"
             android:exported="true"

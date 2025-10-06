@@ -11,8 +11,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.iamcrypticcoder.firebase.presentation.screens.HomeScreen
 import com.iamcrypticcoder.firebase.presentation.screens.login.LoginScreen
-import com.iamcrypticcoder.firebase.presentation.screens.SignupScreen
+import com.iamcrypticcoder.firebase.presentation.screens.signup.SignUpScreen
 import com.iamcrypticcoder.firebase.presentation.ui.theme.FirebaseTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 // ViewModel and State in Compose
 // https://developer.android.com/codelabs/basic-android-kotlin-compose-viewmodel-and-state#5
@@ -21,9 +22,11 @@ import com.iamcrypticcoder.firebase.presentation.ui.theme.FirebaseTheme
 // Jetpack-Compose-Login-Sample
 // https://github.com/Ryuk-C/Jetpack-Compose-Login-Sample/tree/master
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //com.google.firebase.FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContent {
             FirebaseTheme {
@@ -46,7 +49,7 @@ fun MainActivityScreen() {
             LoginScreen(navController)
         }
         composable("signup") {
-            SignupScreen(navController)
+            SignUpScreen(navController)
         }
     }
 }
