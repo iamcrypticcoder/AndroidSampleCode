@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,9 +33,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.iamcrypticcoder.firebase.R
+import com.iamcrypticcoder.firebase.presentation.navigation.NavigationEvent
+import com.iamcrypticcoder.firebase.presentation.navigation.Route
 
 @Composable
 @Preview(showBackground = true)
@@ -44,11 +48,26 @@ fun SignUpScreen(
 ) {
     val uiState by signUpViewModel.uiState.collectAsState()
 
-    var name by remember { mutableStateOf("name") }
+    var name by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(false) }
+
+    // Collect navigation events safely
+    LaunchedEffect(Unit) {
+        signUpViewModel.navigationEvent.collect { event ->
+            when (event) {
+                NavigationEvent.NavigateToDashboard -> {
+                    navController.navigate(Route.Dashboard.route) {
+                        popUpTo(Route.SignupScreen.route) { inclusive = true }
+                    }
+                }
+                else -> {
+                    TODO()
+                }
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -124,9 +143,9 @@ fun SignUpScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                enabled = !isLoading,
+                enabled = !uiState.signUpInProgress,
             ) {
-                if (uiState.isLoading) {
+                if (uiState.signUpInProgress) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = MaterialTheme.colorScheme.onPrimary,

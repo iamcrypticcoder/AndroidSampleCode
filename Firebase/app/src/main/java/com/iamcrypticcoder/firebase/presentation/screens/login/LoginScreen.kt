@@ -24,6 +24,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,19 +40,43 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.iamcrypticcoder.firebase.R
+import com.iamcrypticcoder.firebase.domain.usecase.LoginUseCase
+import com.iamcrypticcoder.firebase.presentation.navigation.NavigationEvent
 import com.iamcrypticcoder.firebase.presentation.navigation.Route
+import com.iamcrypticcoder.firebase.presentation.screens.login.viewmodel.LoginViewModel
 
 @Composable
 @Preview(showBackground = true)
-fun LoginScreen(navController : NavHostController = rememberNavController()) {
-    var username by remember { mutableStateOf("") }
+fun LoginScreen(
+    navController : NavHostController = rememberNavController(),
+    loginViewModel: LoginViewModel = hiltViewModel()
+) {
+    val uiState by loginViewModel.uiState.collectAsState()
+
+    var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(false) }
     val context = LocalContext.current
+
+    // Collect navigation events safely
+    LaunchedEffect(Unit) {
+        loginViewModel.navigationEvent.collect { event ->
+            when (event) {
+                NavigationEvent.NavigateToDashboard -> {
+                    navController.navigate(Route.Dashboard.route) {
+                        popUpTo(Route.SignupScreen.route) { inclusive = true }
+                    }
+                }
+                else -> {
+                    TODO()
+                }
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -80,8 +106,8 @@ fun LoginScreen(navController : NavHostController = rememberNavController()) {
 
             Column(modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
-                    value = username,
-                    onValueChange = { username = it },
+                    value = phoneNumber,
+                    onValueChange = { phoneNumber = it },
                     label = { Text("Username") },
                     placeholder = { Text("Enter your username") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -90,9 +116,9 @@ fun LoginScreen(navController : NavHostController = rememberNavController()) {
                     isError = false,
                 )
                 Spacer(modifier = Modifier.height(4.dp)) // Space for error message
-                AnimatedVisibility(visible = username.isNotEmpty()) {
+                AnimatedVisibility(visible = phoneNumber.isNotEmpty()) {
                     Text(
-                        text = username,
+                        text = phoneNumber,
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodySmall,
                     )
@@ -139,13 +165,15 @@ fun LoginScreen(navController : NavHostController = rememberNavController()) {
 //            }
 
             Button(
-                onClick = { isLoading = true },
+                onClick = {
+                    loginViewModel.login(phoneNumber, password)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                enabled = !isLoading,
+                enabled = !uiState.isLoginInProgress,
             ) {
-                if (isLoading) {
+                if (uiState.isLoginInProgress) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = MaterialTheme.colorScheme.onPrimary,

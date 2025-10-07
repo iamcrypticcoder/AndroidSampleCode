@@ -19,7 +19,7 @@ class LoginUseCaseImpl @Inject constructor(
     private lateinit var phoneNumber: String
     private lateinit var password: String
     private var isInitialized = false
-    private var callback: LoginUseCase.Callback? = null
+    private lateinit var callback : LoginUseCase.Callback
 
     override fun setLoginCredentials(phoneNumber: String, password: String) {
         if (isInitialized) {
@@ -38,12 +38,7 @@ class LoginUseCaseImpl @Inject constructor(
         Log.d(TAG, "execute()")
         
         if (!isInitialized) {
-            callback?.onFailed("Login credentials not set")
-            return
-        }
-
-        if (callback == null) {
-            Log.w(TAG, "Callback not set")
+            callback.onFailed("Login credentials not set")
             return
         }
 
@@ -54,8 +49,10 @@ class LoginUseCaseImpl @Inject constructor(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("Firebase", "Login successful")
+                        callback.onSuccess("Login successful")
                     } else {
                         Log.e("Firebase", "Login failed: ${task.exception?.message}")
+                        callback.onFailed("Login failed")
                     }
                 }
 

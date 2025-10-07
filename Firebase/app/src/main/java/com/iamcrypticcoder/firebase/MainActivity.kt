@@ -9,7 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.iamcrypticcoder.firebase.presentation.navigation.Route
 import com.iamcrypticcoder.firebase.presentation.screens.HomeScreen
+import com.iamcrypticcoder.firebase.presentation.screens.dashboard.DashboardScreen
 import com.iamcrypticcoder.firebase.presentation.screens.login.LoginScreen
 import com.iamcrypticcoder.firebase.presentation.screens.signup.SignUpScreen
 import com.iamcrypticcoder.firebase.presentation.ui.theme.FirebaseTheme
@@ -26,7 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //com.google.firebase.FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContent {
             FirebaseTheme {
@@ -41,15 +42,18 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainActivityScreen() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "home") {
-        composable("home") {
+    NavHost(navController, startDestination = Route.Home.route) {
+        composable(Route.Home.route) {
             HomeScreen(navController)
         }
-        composable("login") {
+        composable(Route.LoginScreen.route) {
             LoginScreen(navController)
         }
-        composable("signup") {
+        composable(Route.SignupScreen.route) {
             SignUpScreen(navController)
+        }
+        composable(Route.Dashboard.route) {
+            DashboardScreen(navController)
         }
     }
 }

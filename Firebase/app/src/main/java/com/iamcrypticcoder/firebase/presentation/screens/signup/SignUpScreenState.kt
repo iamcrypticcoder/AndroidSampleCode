@@ -1,7 +1,8 @@
 package com.iamcrypticcoder.firebase.presentation.screens.signup
 
 data class SignUpScreenState(
-    var isLoading : Boolean = false,
+    var name: String = "",
     var phoneNumber: String = "",
-    var password: String = ""
+    var password: String = "",
+    var signUpInProgress : Boolean = false
 )
